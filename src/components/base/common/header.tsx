@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Navbar } from "./navbar";
 import { Button } from "#/components/ui/button";
 import { MenuIcon, ShoppingBagIcon } from "lucide-react";
-import ThemeToggle from "#/components/ThemeToggle";
+import ThemeToggle from "#/components/theme-toggle";
 import { CartSheet } from "#/components/containers/store/cart/cart-sheet";
 import { useCartStore } from "#/lib/store/cart-store";
 import { MobileMenu } from "./mobile-menu";
@@ -22,7 +22,7 @@ const navigationItems = [
   },
 ];
 
-export default function Header() {
+export function Header() {
   const { totalItems, setIsOpen } = useCartStore();
   return (
     <header className="@container sticky top-0 z-40 w-full border-b border-dashed bg-background backdrop-blur supports-filter:bg-background/80">
@@ -75,16 +75,19 @@ export default function Header() {
           </div>
 
           <div className="flex @6xl:hidden">
-            <MobileMenu navigationItems={navigationItems} trigger={
-              <Button
-              variant="secondary"
-              size="icon-lg"
-              aria-label="Open Menu"
-              className="rounded-xl"
-              >
-                <MenuIcon className="size-5"/>
-              </Button>
-            }/>
+            <MobileMenu
+              navigationItems={navigationItems}
+              trigger={
+                <Button
+                  variant="secondary"
+                  size="icon-lg"
+                  aria-label="Open Menu"
+                  className="rounded-xl"
+                >
+                  <MenuIcon className="size-5" />
+                </Button>
+              }
+            />
           </div>
         </div>
       </div>
