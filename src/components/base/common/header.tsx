@@ -13,8 +13,8 @@ const navigationItems = [
     label: "Home",
   },
   {
-    to: "/products",
-    label: "Products",
+    to: "/product",
+    label: "Product",
   },
   {
     to: "/categories",
