@@ -1,0 +1,38 @@
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "#/components/ui/empty";
+import { cn } from "#/lib/utils";
+
+interface EmptyStateProps {
+  icon?: React.ReactNode;
+  title: string;
+  description: string;
+  action?: React.ReactNode;
+  className?: string;
+  variant?: "default" | "icon";
+}
+
+export function EmptyState({
+  icon,
+  title,
+  description,
+  action,
+  className,
+  variant,
+}: EmptyStateProps) {
+  return (
+    <Empty className={cn(className)}>
+      {icon && <EmptyMedia variant={variant}>{icon}</EmptyMedia>}
+      <EmptyHeader>
+        <EmptyTitle>{title}</EmptyTitle>
+        {description && <EmptyDescription>{description}</EmptyDescription>}
+      </EmptyHeader>
+        {action && <EmptyContent>{action}</EmptyContent>}
+    </Empty>
+  );
+}

@@ -24,7 +24,13 @@ export function CollectionItem({
   return (
     <div className={cn(" border-dashed @6xl:p-7.5 p-5", className)}>
       <div className="overflow-hidden rounded-t-2xl">
-        <img src={image} alt={title} className="w-full h-96.5 object-cover" />
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-96.5 object-cover"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div className="@6xl:mt-7.5 mt-5 flex items-center justify-start @6xl:justify-between gap-3">
