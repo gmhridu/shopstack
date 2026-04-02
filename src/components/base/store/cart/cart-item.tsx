@@ -7,7 +7,7 @@ import { QuantitySelector } from "#/components/base/products/details/quantity-se
 interface CartItemProps {
   item: CartItem;
   isCompact?: boolean;
-} 
+}
 
 export function CartItem({ item, isCompact = false }: CartItemProps) {
   const { updateQuantity, removeItem } = useCartStore();
@@ -28,6 +28,8 @@ export function CartItem({ item, isCompact = false }: CartItemProps) {
           src={item.image}
           alt={item.name}
           className="size-full object-cover"
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <div className="flex flex-1 flex-col justify-between gap-2">
@@ -63,7 +65,7 @@ export function CartItem({ item, isCompact = false }: CartItemProps) {
                 value={item.quantity}
                 onChange={(value) => updateQuantity(item.id, value)}
                 max={item.maxQuantity}
-                className="h-8"
+                className="@7xl:h-8.5"
                 size="sm"
               />
 
