@@ -20,6 +20,8 @@ export function Hero() {
             src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1974&auto=format&fit=crop"
             alt="Hero"
             className="h-105 w-full rounded-2xl rounded-b-none object-cover"
+            loading="lazy"
+            decoding="async"
           />
 
           <div className="-translate-x-1/2 -bottom-12 absolute left-1/2">
