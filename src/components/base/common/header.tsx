@@ -17,8 +17,8 @@ const navigationItems = [
     label: "Product",
   },
   {
-    to: "/categories",
-    label: "Categories",
+    to: "/category",
+    label: "Category",
   },
 ];
 
