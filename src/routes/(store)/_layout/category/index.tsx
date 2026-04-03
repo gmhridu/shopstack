@@ -1,9 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
+import { CategoryTemplate } from "#/components/templates/store/category/category-template";
 
-export const Route = createFileRoute('/(store)/_layout/category/')({
+export const Route = createFileRoute("/(store)/_layout/category/")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <div>Hello "/(store)/_layout/category/"!</div>
+  return <CategoryTemplate />;
 }
