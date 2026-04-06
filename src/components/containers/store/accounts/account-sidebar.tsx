@@ -17,7 +17,7 @@ const sidebarItems = [
   },
   {
     title: "My Wishlists",
-    href: "/wishlists",
+    href: "/wishlist",
     icon: HeartIcon,
   },
 ];

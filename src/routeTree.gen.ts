@@ -13,6 +13,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as storeLayoutRouteImport } from './routes/(store)/_layout'
 import { Route as storeLayoutIndexRouteImport } from './routes/(store)/_layout/index'
+import { Route as storeLayoutWishlistRouteImport } from './routes/(store)/_layout/wishlist'
 import { Route as storeLayoutProfileRouteImport } from './routes/(store)/_layout/profile'
 import { Route as storeLayoutOrdersRouteImport } from './routes/(store)/_layout/orders'
 import { Route as storeLayoutOrderTrackingRouteImport } from './routes/(store)/_layout/order-tracking'
@@ -43,6 +44,11 @@ const storeLayoutRoute = storeLayoutRouteImport.update({
 const storeLayoutIndexRoute = storeLayoutIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => storeLayoutRoute,
+} as any)
+const storeLayoutWishlistRoute = storeLayoutWishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
   getParentRoute: () => storeLayoutRoute,
 } as any)
 const storeLayoutProfileRoute = storeLayoutProfileRouteImport.update({
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/order-tracking': typeof storeLayoutOrderTrackingRoute
   '/orders': typeof storeLayoutOrdersRoute
   '/profile': typeof storeLayoutProfileRoute
+  '/wishlist': typeof storeLayoutWishlistRoute
   '/': typeof storeLayoutIndexRoute
   '/category/$slug': typeof storeLayoutCategorySlugRoute
   '/product/$productId': typeof storeLayoutProductProductIdRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/order-tracking': typeof storeLayoutOrderTrackingRoute
   '/orders': typeof storeLayoutOrdersRoute
   '/profile': typeof storeLayoutProfileRoute
+  '/wishlist': typeof storeLayoutWishlistRoute
   '/': typeof storeLayoutIndexRoute
   '/category/$slug': typeof storeLayoutCategorySlugRoute
   '/product/$productId': typeof storeLayoutProductProductIdRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/(store)/_layout/order-tracking': typeof storeLayoutOrderTrackingRoute
   '/(store)/_layout/orders': typeof storeLayoutOrdersRoute
   '/(store)/_layout/profile': typeof storeLayoutProfileRoute
+  '/(store)/_layout/wishlist': typeof storeLayoutWishlistRoute
   '/(store)/_layout/': typeof storeLayoutIndexRoute
   '/(store)/_layout/category/$slug': typeof storeLayoutCategorySlugRoute
   '/(store)/_layout/product/$productId': typeof storeLayoutProductProductIdRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/order-tracking'
     | '/orders'
     | '/profile'
+    | '/wishlist'
     | '/'
     | '/category/$slug'
     | '/product/$productId'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/order-tracking'
     | '/orders'
     | '/profile'
+    | '/wishlist'
     | '/'
     | '/category/$slug'
     | '/product/$productId'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/(store)/_layout/order-tracking'
     | '/(store)/_layout/orders'
     | '/(store)/_layout/profile'
+    | '/(store)/_layout/wishlist'
     | '/(store)/_layout/'
     | '/(store)/_layout/category/$slug'
     | '/(store)/_layout/product/$productId'
@@ -252,6 +264,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof storeLayoutIndexRouteImport
+      parentRoute: typeof storeLayoutRoute
+    }
+    '/(store)/_layout/wishlist': {
+      id: '/(store)/_layout/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof storeLayoutWishlistRouteImport
       parentRoute: typeof storeLayoutRoute
     }
     '/(store)/_layout/profile': {
@@ -348,6 +367,7 @@ interface storeLayoutRouteChildren {
   storeLayoutOrderTrackingRoute: typeof storeLayoutOrderTrackingRoute
   storeLayoutOrdersRoute: typeof storeLayoutOrdersRoute
   storeLayoutProfileRoute: typeof storeLayoutProfileRoute
+  storeLayoutWishlistRoute: typeof storeLayoutWishlistRoute
   storeLayoutIndexRoute: typeof storeLayoutIndexRoute
   storeLayoutCategorySlugRoute: typeof storeLayoutCategorySlugRoute
   storeLayoutProductProductIdRoute: typeof storeLayoutProductProductIdRoute
@@ -364,6 +384,7 @@ const storeLayoutRouteChildren: storeLayoutRouteChildren = {
   storeLayoutOrderTrackingRoute: storeLayoutOrderTrackingRoute,
   storeLayoutOrdersRoute: storeLayoutOrdersRoute,
   storeLayoutProfileRoute: storeLayoutProfileRoute,
+  storeLayoutWishlistRoute: storeLayoutWishlistRoute,
   storeLayoutIndexRoute: storeLayoutIndexRoute,
   storeLayoutCategorySlugRoute: storeLayoutCategorySlugRoute,
   storeLayoutProductProductIdRoute: storeLayoutProductProductIdRoute,
