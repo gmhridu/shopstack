@@ -1,7 +1,7 @@
 import { Label } from "#/components/ui/label";
 import { Input } from "#/components/ui/input";
 import { Button } from "#/components/ui/button";
-import { AddressBook } from "#/components/templates/store/accounts/address-book";
+import { AddressBook } from "#/components/templates/store/accounts/profile/address-book";
 
 export function ProfileForm() {
   //   const { data } = useSession();
