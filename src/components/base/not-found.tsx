@@ -11,7 +11,7 @@ import {
 
 export default function NotFound({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="flex min-h-[50vh] min-w-0 flex-1 flex-col items-center justify-center p-4">
+    <div className="flex min-h-screen min-w-0 flex-1 flex-col items-center justify-center p-4">
       <Card className="w-full max-w-md border-border/40 shadow-xl backdrop-blur-sm">
         <CardHeader className="flex flex-col items-center gap-2 pb-2 text-center">
           <div className="rounded-full bg-muted p-4 ring-1 ring-muted-foreground/20">

@@ -5,7 +5,7 @@ import { Button } from "#/components/ui/button";
 import {
   AddressDialog,
   type AddressFormValues,
-} from "#/components/templates/store/accounts/address-dialog";
+} from "#/components/templates/store/accounts/profile/address-dialog";
 
 // Mock data type
 interface Address {
