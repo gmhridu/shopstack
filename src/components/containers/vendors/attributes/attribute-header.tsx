@@ -2,21 +2,24 @@ import { PageHeader } from "#/components/base/common/page-header";
 import { Button } from "#/components/ui/button";
 import { PlusIcon } from "lucide-react";
 
-interface ProductHeaderProps {
-  onAddProduct: () => void;
+interface AttributeHeaderProps {
+  onAddAttribute: () => void;
   className?: string;
 }
 
-export function ProductHeader({ onAddProduct, className }: ProductHeaderProps) {
+export function AttributeHeader({
+  onAddAttribute,
+  className,
+}: AttributeHeaderProps) {
   return (
     <PageHeader
-      title="Products"
-      description="Manage products across all your shops"
+      title="Attributes"
+      description="Manage your product attributes and variations"
       className={className}
     >
-      <Button onClick={onAddProduct}>
+      <Button onClick={onAddAttribute}>
         <PlusIcon className="mr-2 size-4" />
-        Add Product
+        Add Attribute
       </Button>
     </PageHeader>
   );
