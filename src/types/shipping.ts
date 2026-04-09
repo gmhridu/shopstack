@@ -1,12 +1,12 @@
-export interface Tag {
+export interface ShippingMethod {
   id: string;
   name: string;
-  slug: string;
+  price: number;
+  duration: string;
   description?: string;
-  productCount: number;
 }
 
-export interface TagPermissions {
+export interface ShippingPermissions {
   canDelete: boolean;
   canEdit: boolean;
   canView: boolean;

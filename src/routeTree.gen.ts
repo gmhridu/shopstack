@@ -32,6 +32,9 @@ import { Route as storeLayoutStoreIndexRouteImport } from './routes/(store)/_lay
 import { Route as storeLayoutProductIndexRouteImport } from './routes/(store)/_layout/product/index'
 import { Route as storeLayoutCategoryIndexRouteImport } from './routes/(store)/_layout/category/index'
 import { Route as adminAdminTenantsIndexRouteImport } from './routes/(admin)/admin/tenants/index'
+import { Route as adminAdminReviewsIndexRouteImport } from './routes/(admin)/admin/reviews/index'
+import { Route as adminAdminProductsIndexRouteImport } from './routes/(admin)/admin/products/index'
+import { Route as adminAdminCouponsIndexRouteImport } from './routes/(admin)/admin/coupons/index'
 import { Route as vendorShopSlugTransactionsRouteImport } from './routes/(vendor)/shop/$slug/transactions'
 import { Route as vendorShopSlugTaxesRouteImport } from './routes/(vendor)/shop/$slug/taxes'
 import { Route as vendorShopSlugTagsRouteImport } from './routes/(vendor)/shop/$slug/tags'
@@ -165,6 +168,21 @@ const adminAdminTenantsIndexRoute = adminAdminTenantsIndexRouteImport.update({
   path: '/tenants/',
   getParentRoute: () => adminAdminRoute,
 } as any)
+const adminAdminReviewsIndexRoute = adminAdminReviewsIndexRouteImport.update({
+  id: '/reviews/',
+  path: '/reviews/',
+  getParentRoute: () => adminAdminRoute,
+} as any)
+const adminAdminProductsIndexRoute = adminAdminProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => adminAdminRoute,
+} as any)
+const adminAdminCouponsIndexRoute = adminAdminCouponsIndexRouteImport.update({
+  id: '/coupons/',
+  path: '/coupons/',
+  getParentRoute: () => adminAdminRoute,
+} as any)
 const vendorShopSlugTransactionsRoute =
   vendorShopSlugTransactionsRouteImport.update({
     id: '/transactions',
@@ -284,6 +302,9 @@ export interface FileRoutesByFullPath {
   '/shop/$slug/tags': typeof vendorShopSlugTagsRoute
   '/shop/$slug/taxes': typeof vendorShopSlugTaxesRoute
   '/shop/$slug/transactions': typeof vendorShopSlugTransactionsRoute
+  '/admin/coupons/': typeof adminAdminCouponsIndexRoute
+  '/admin/products/': typeof adminAdminProductsIndexRoute
+  '/admin/reviews/': typeof adminAdminReviewsIndexRoute
   '/admin/tenants/': typeof adminAdminTenantsIndexRoute
   '/category/': typeof storeLayoutCategoryIndexRoute
   '/product/': typeof storeLayoutProductIndexRoute
@@ -321,6 +342,9 @@ export interface FileRoutesByTo {
   '/shop/$slug/tags': typeof vendorShopSlugTagsRoute
   '/shop/$slug/taxes': typeof vendorShopSlugTaxesRoute
   '/shop/$slug/transactions': typeof vendorShopSlugTransactionsRoute
+  '/admin/coupons': typeof adminAdminCouponsIndexRoute
+  '/admin/products': typeof adminAdminProductsIndexRoute
+  '/admin/reviews': typeof adminAdminReviewsIndexRoute
   '/admin/tenants': typeof adminAdminTenantsIndexRoute
   '/category': typeof storeLayoutCategoryIndexRoute
   '/product': typeof storeLayoutProductIndexRoute
@@ -363,6 +387,9 @@ export interface FileRoutesById {
   '/(vendor)/shop/$slug/tags': typeof vendorShopSlugTagsRoute
   '/(vendor)/shop/$slug/taxes': typeof vendorShopSlugTaxesRoute
   '/(vendor)/shop/$slug/transactions': typeof vendorShopSlugTransactionsRoute
+  '/(admin)/admin/coupons/': typeof adminAdminCouponsIndexRoute
+  '/(admin)/admin/products/': typeof adminAdminProductsIndexRoute
+  '/(admin)/admin/reviews/': typeof adminAdminReviewsIndexRoute
   '/(admin)/admin/tenants/': typeof adminAdminTenantsIndexRoute
   '/(store)/_layout/category/': typeof storeLayoutCategoryIndexRoute
   '/(store)/_layout/product/': typeof storeLayoutProductIndexRoute
@@ -404,6 +431,9 @@ export interface FileRouteTypes {
     | '/shop/$slug/tags'
     | '/shop/$slug/taxes'
     | '/shop/$slug/transactions'
+    | '/admin/coupons/'
+    | '/admin/products/'
+    | '/admin/reviews/'
     | '/admin/tenants/'
     | '/category/'
     | '/product/'
@@ -441,6 +471,9 @@ export interface FileRouteTypes {
     | '/shop/$slug/tags'
     | '/shop/$slug/taxes'
     | '/shop/$slug/transactions'
+    | '/admin/coupons'
+    | '/admin/products'
+    | '/admin/reviews'
     | '/admin/tenants'
     | '/category'
     | '/product'
@@ -482,6 +515,9 @@ export interface FileRouteTypes {
     | '/(vendor)/shop/$slug/tags'
     | '/(vendor)/shop/$slug/taxes'
     | '/(vendor)/shop/$slug/transactions'
+    | '/(admin)/admin/coupons/'
+    | '/(admin)/admin/products/'
+    | '/(admin)/admin/reviews/'
     | '/(admin)/admin/tenants/'
     | '/(store)/_layout/category/'
     | '/(store)/_layout/product/'
@@ -663,6 +699,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof adminAdminTenantsIndexRouteImport
       parentRoute: typeof adminAdminRoute
     }
+    '/(admin)/admin/reviews/': {
+      id: '/(admin)/admin/reviews/'
+      path: '/reviews'
+      fullPath: '/admin/reviews/'
+      preLoaderRoute: typeof adminAdminReviewsIndexRouteImport
+      parentRoute: typeof adminAdminRoute
+    }
+    '/(admin)/admin/products/': {
+      id: '/(admin)/admin/products/'
+      path: '/products'
+      fullPath: '/admin/products/'
+      preLoaderRoute: typeof adminAdminProductsIndexRouteImport
+      parentRoute: typeof adminAdminRoute
+    }
+    '/(admin)/admin/coupons/': {
+      id: '/(admin)/admin/coupons/'
+      path: '/coupons'
+      fullPath: '/admin/coupons/'
+      preLoaderRoute: typeof adminAdminCouponsIndexRouteImport
+      parentRoute: typeof adminAdminRoute
+    }
     '/(vendor)/shop/$slug/transactions': {
       id: '/(vendor)/shop/$slug/transactions'
       path: '/transactions'
@@ -782,6 +839,9 @@ interface adminAdminRouteChildren {
   adminAdminMyStoreRoute: typeof adminAdminMyStoreRoute
   adminAdminIndexRoute: typeof adminAdminIndexRoute
   adminAdminTenantsTenantIdRoute: typeof adminAdminTenantsTenantIdRoute
+  adminAdminCouponsIndexRoute: typeof adminAdminCouponsIndexRoute
+  adminAdminProductsIndexRoute: typeof adminAdminProductsIndexRoute
+  adminAdminReviewsIndexRoute: typeof adminAdminReviewsIndexRoute
   adminAdminTenantsIndexRoute: typeof adminAdminTenantsIndexRoute
 }
 
@@ -789,6 +849,9 @@ const adminAdminRouteChildren: adminAdminRouteChildren = {
   adminAdminMyStoreRoute: adminAdminMyStoreRoute,
   adminAdminIndexRoute: adminAdminIndexRoute,
   adminAdminTenantsTenantIdRoute: adminAdminTenantsTenantIdRoute,
+  adminAdminCouponsIndexRoute: adminAdminCouponsIndexRoute,
+  adminAdminProductsIndexRoute: adminAdminProductsIndexRoute,
+  adminAdminReviewsIndexRoute: adminAdminReviewsIndexRoute,
   adminAdminTenantsIndexRoute: adminAdminTenantsIndexRoute,
 }
 
