@@ -1,4 +1,4 @@
-import ThemeToggle from "#/components/theme-toggle";
+import DashboardThemeToggle from "#/components/dashboard-theme-toggle";
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
 import { SidebarTrigger } from "#/components/ui/sidebar";
@@ -56,7 +56,7 @@ export function VendorHeader({
           </Link>
         </Button>
 
-        <ThemeToggle />
+        <DashboardThemeToggle />
       </div>
     </header>
   );
