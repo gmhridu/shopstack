@@ -41,7 +41,7 @@ function applyThemeMode(mode: ThemeMode) {
   root.style.colorScheme = resolved;
 }
 
-export default function ThemeToggle() {
+export default function DashboardThemeToggle() {
   const [mode, setMode] = useState<ThemeMode>("auto");
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() => {
     if (typeof window === "undefined") return "light";
@@ -86,8 +86,8 @@ export default function ThemeToggle() {
 
   return (
     <Button
-      variant="outline"
-      size="icon-lg"
+      variant="ghost"
+      size="icon"
       type="button"
       onClick={toggleTheme}
       className="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
