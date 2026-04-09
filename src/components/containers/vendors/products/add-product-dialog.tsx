@@ -112,7 +112,7 @@ export function AddProductDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-150">
+      <DialogContent className="max-h-[90vh] overflow-y-auto custom-scrollbar sm:max-w-150">
         <DialogHeader>
           <DialogTitle className="text-xl">Add New Product</DialogTitle>
           <DialogDescription>

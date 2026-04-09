@@ -103,7 +103,7 @@ export function AddAttributeDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto @xl:max-w-150">
+      <DialogContent className="max-h-[90vh] overflow-y-auto custom-scrollbar @xl:max-w-150">
         <DialogHeader>
           <DialogTitle>Add New Attribute</DialogTitle>
           <DialogDescription>
