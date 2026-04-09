@@ -35,13 +35,23 @@ export function VendorDashboardSidebar() {
     role: "vendor",
   };
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
-        <div className="flex items-center gap-3 px-2 py-4">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+        <div
+          className="flex items-center px-2 py-4
+    group-data-[collapsible=icon]:justify-center
+    group-data-[collapsible=icon]:px-0"
+        >
+          {/* Icon */}
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <StoreIcon className="size-6" />
           </div>
-          <div className="grid flex-1 text-left leading-tight">
+
+          {/* Text */}
+          <div
+            className="ml-3 grid flex-1 text-left leading-tight
+      group-data-[collapsible=icon]:hidden"
+          >
             <span className="truncate font-bold text-base">ShopStack</span>
             <span className="truncate text-muted-foreground text-sm">
               Vendor Portal

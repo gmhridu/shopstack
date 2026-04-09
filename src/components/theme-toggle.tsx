@@ -90,14 +90,16 @@ export default function ThemeToggle() {
       size="icon-lg"
       type="button"
       onClick={toggleTheme}
-      className="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      className="transition-all duration-300 hover:scale-110"
       aria-label="Toggle theme"
     >
-      {resolvedTheme === "dark" ? (
-        <SunIcon size={22} />
-      ) : (
-        <MoonIcon size={22} />
-      )}
+      <span className="transition-transform duration-300">
+        {resolvedTheme === "dark" ? (
+          <SunIcon size={22} className="rotate-0" />
+        ) : (
+          <MoonIcon size={22} className="" />
+        )}
+      </span>
     </Button>
   );
 }
