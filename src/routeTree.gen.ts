@@ -30,6 +30,7 @@ import { Route as vendorShopSlugIndexRouteImport } from './routes/(vendor)/shop/
 import { Route as storeLayoutStoreIndexRouteImport } from './routes/(store)/_layout/store/index'
 import { Route as storeLayoutProductIndexRouteImport } from './routes/(store)/_layout/product/index'
 import { Route as storeLayoutCategoryIndexRouteImport } from './routes/(store)/_layout/category/index'
+import { Route as adminAdminTenantsIndexRouteImport } from './routes/(admin)/admin/tenants/index'
 import { Route as vendorShopSlugTransactionsRouteImport } from './routes/(vendor)/shop/$slug/transactions'
 import { Route as vendorShopSlugTaxesRouteImport } from './routes/(vendor)/shop/$slug/taxes'
 import { Route as vendorShopSlugTagsRouteImport } from './routes/(vendor)/shop/$slug/tags'
@@ -43,6 +44,7 @@ import { Route as vendorShopSlugAttributesRouteImport } from './routes/(vendor)/
 import { Route as storeLayoutStoreSlugRouteImport } from './routes/(store)/_layout/store/$slug'
 import { Route as storeLayoutProductProductIdRouteImport } from './routes/(store)/_layout/product/$productId'
 import { Route as storeLayoutCategorySlugRouteImport } from './routes/(store)/_layout/category/$slug'
+import { Route as adminAdminTenantsTenantIdRouteImport } from './routes/(admin)/admin/tenants/$tenantId'
 import { Route as vendorShopSlugOrdersIndexRouteImport } from './routes/(vendor)/shop/$slug/orders/index'
 import { Route as vendorShopSlugOrdersOrderIdRouteImport } from './routes/(vendor)/shop/$slug/orders/$orderId'
 
@@ -152,6 +154,11 @@ const storeLayoutCategoryIndexRoute =
     path: '/category/',
     getParentRoute: () => storeLayoutRoute,
   } as any)
+const adminAdminTenantsIndexRoute = adminAdminTenantsIndexRouteImport.update({
+  id: '/tenants/',
+  path: '/tenants/',
+  getParentRoute: () => adminAdminRoute,
+} as any)
 const vendorShopSlugTransactionsRoute =
   vendorShopSlugTransactionsRouteImport.update({
     id: '/transactions',
@@ -221,6 +228,12 @@ const storeLayoutCategorySlugRoute = storeLayoutCategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => storeLayoutRoute,
 } as any)
+const adminAdminTenantsTenantIdRoute =
+  adminAdminTenantsTenantIdRouteImport.update({
+    id: '/tenants/$tenantId',
+    path: '/tenants/$tenantId',
+    getParentRoute: () => adminAdminRoute,
+  } as any)
 const vendorShopSlugOrdersIndexRoute =
   vendorShopSlugOrdersIndexRouteImport.update({
     id: '/orders/',
@@ -250,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/shop/$slug': typeof vendorShopSlugRouteWithChildren
   '/admin/': typeof adminAdminIndexRoute
   '/': typeof storeLayoutIndexRoute
+  '/admin/tenants/$tenantId': typeof adminAdminTenantsTenantIdRoute
   '/category/$slug': typeof storeLayoutCategorySlugRoute
   '/product/$productId': typeof storeLayoutProductProductIdRoute
   '/store/$slug': typeof storeLayoutStoreSlugRoute
@@ -263,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/shop/$slug/tags': typeof vendorShopSlugTagsRoute
   '/shop/$slug/taxes': typeof vendorShopSlugTaxesRoute
   '/shop/$slug/transactions': typeof vendorShopSlugTransactionsRoute
+  '/admin/tenants/': typeof adminAdminTenantsIndexRoute
   '/category/': typeof storeLayoutCategoryIndexRoute
   '/product/': typeof storeLayoutProductIndexRoute
   '/store/': typeof storeLayoutStoreIndexRoute
@@ -284,6 +299,7 @@ export interface FileRoutesByTo {
   '/my-shop': typeof vendorLayoutMyShopRoute
   '/admin': typeof adminAdminIndexRoute
   '/': typeof storeLayoutIndexRoute
+  '/admin/tenants/$tenantId': typeof adminAdminTenantsTenantIdRoute
   '/category/$slug': typeof storeLayoutCategorySlugRoute
   '/product/$productId': typeof storeLayoutProductProductIdRoute
   '/store/$slug': typeof storeLayoutStoreSlugRoute
@@ -297,6 +313,7 @@ export interface FileRoutesByTo {
   '/shop/$slug/tags': typeof vendorShopSlugTagsRoute
   '/shop/$slug/taxes': typeof vendorShopSlugTaxesRoute
   '/shop/$slug/transactions': typeof vendorShopSlugTransactionsRoute
+  '/admin/tenants': typeof adminAdminTenantsIndexRoute
   '/category': typeof storeLayoutCategoryIndexRoute
   '/product': typeof storeLayoutProductIndexRoute
   '/store': typeof storeLayoutStoreIndexRoute
@@ -323,6 +340,7 @@ export interface FileRoutesById {
   '/(vendor)/shop/$slug': typeof vendorShopSlugRouteWithChildren
   '/(admin)/admin/': typeof adminAdminIndexRoute
   '/(store)/_layout/': typeof storeLayoutIndexRoute
+  '/(admin)/admin/tenants/$tenantId': typeof adminAdminTenantsTenantIdRoute
   '/(store)/_layout/category/$slug': typeof storeLayoutCategorySlugRoute
   '/(store)/_layout/product/$productId': typeof storeLayoutProductProductIdRoute
   '/(store)/_layout/store/$slug': typeof storeLayoutStoreSlugRoute
@@ -336,6 +354,7 @@ export interface FileRoutesById {
   '/(vendor)/shop/$slug/tags': typeof vendorShopSlugTagsRoute
   '/(vendor)/shop/$slug/taxes': typeof vendorShopSlugTaxesRoute
   '/(vendor)/shop/$slug/transactions': typeof vendorShopSlugTransactionsRoute
+  '/(admin)/admin/tenants/': typeof adminAdminTenantsIndexRoute
   '/(store)/_layout/category/': typeof storeLayoutCategoryIndexRoute
   '/(store)/_layout/product/': typeof storeLayoutProductIndexRoute
   '/(store)/_layout/store/': typeof storeLayoutStoreIndexRoute
@@ -361,6 +380,7 @@ export interface FileRouteTypes {
     | '/shop/$slug'
     | '/admin/'
     | '/'
+    | '/admin/tenants/$tenantId'
     | '/category/$slug'
     | '/product/$productId'
     | '/store/$slug'
@@ -374,6 +394,7 @@ export interface FileRouteTypes {
     | '/shop/$slug/tags'
     | '/shop/$slug/taxes'
     | '/shop/$slug/transactions'
+    | '/admin/tenants/'
     | '/category/'
     | '/product/'
     | '/store/'
@@ -395,6 +416,7 @@ export interface FileRouteTypes {
     | '/my-shop'
     | '/admin'
     | '/'
+    | '/admin/tenants/$tenantId'
     | '/category/$slug'
     | '/product/$productId'
     | '/store/$slug'
@@ -408,6 +430,7 @@ export interface FileRouteTypes {
     | '/shop/$slug/tags'
     | '/shop/$slug/taxes'
     | '/shop/$slug/transactions'
+    | '/admin/tenants'
     | '/category'
     | '/product'
     | '/store'
@@ -433,6 +456,7 @@ export interface FileRouteTypes {
     | '/(vendor)/shop/$slug'
     | '/(admin)/admin/'
     | '/(store)/_layout/'
+    | '/(admin)/admin/tenants/$tenantId'
     | '/(store)/_layout/category/$slug'
     | '/(store)/_layout/product/$productId'
     | '/(store)/_layout/store/$slug'
@@ -446,6 +470,7 @@ export interface FileRouteTypes {
     | '/(vendor)/shop/$slug/tags'
     | '/(vendor)/shop/$slug/taxes'
     | '/(vendor)/shop/$slug/transactions'
+    | '/(admin)/admin/tenants/'
     | '/(store)/_layout/category/'
     | '/(store)/_layout/product/'
     | '/(store)/_layout/store/'
@@ -612,6 +637,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof storeLayoutCategoryIndexRouteImport
       parentRoute: typeof storeLayoutRoute
     }
+    '/(admin)/admin/tenants/': {
+      id: '/(admin)/admin/tenants/'
+      path: '/tenants'
+      fullPath: '/admin/tenants/'
+      preLoaderRoute: typeof adminAdminTenantsIndexRouteImport
+      parentRoute: typeof adminAdminRoute
+    }
     '/(vendor)/shop/$slug/transactions': {
       id: '/(vendor)/shop/$slug/transactions'
       path: '/transactions'
@@ -703,6 +735,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof storeLayoutCategorySlugRouteImport
       parentRoute: typeof storeLayoutRoute
     }
+    '/(admin)/admin/tenants/$tenantId': {
+      id: '/(admin)/admin/tenants/$tenantId'
+      path: '/tenants/$tenantId'
+      fullPath: '/admin/tenants/$tenantId'
+      preLoaderRoute: typeof adminAdminTenantsTenantIdRouteImport
+      parentRoute: typeof adminAdminRoute
+    }
     '/(vendor)/shop/$slug/orders/': {
       id: '/(vendor)/shop/$slug/orders/'
       path: '/orders'
@@ -722,10 +761,14 @@ declare module '@tanstack/react-router' {
 
 interface adminAdminRouteChildren {
   adminAdminIndexRoute: typeof adminAdminIndexRoute
+  adminAdminTenantsTenantIdRoute: typeof adminAdminTenantsTenantIdRoute
+  adminAdminTenantsIndexRoute: typeof adminAdminTenantsIndexRoute
 }
 
 const adminAdminRouteChildren: adminAdminRouteChildren = {
   adminAdminIndexRoute: adminAdminIndexRoute,
+  adminAdminTenantsTenantIdRoute: adminAdminTenantsTenantIdRoute,
+  adminAdminTenantsIndexRoute: adminAdminTenantsIndexRoute,
 }
 
 const adminAdminRouteWithChildren = adminAdminRoute._addFileChildren(
