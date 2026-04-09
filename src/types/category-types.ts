@@ -36,7 +36,7 @@ export interface CategoryFormValues {
   name: string;
   slug: string;
   description: string;
-  image: string | null;
+  image: FileList | string | null;
   icon: string;
   parentId: string;
 }

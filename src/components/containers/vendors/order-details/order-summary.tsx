@@ -1,13 +1,13 @@
 import { CreditCard, User } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "#/components/ui/badge";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+} from "#/components/ui/card";
+import { Separator } from "#/components/ui/separator";
 
 interface OrderSummaryProps {
   orderId: string;
