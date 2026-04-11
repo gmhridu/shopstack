@@ -6,6 +6,8 @@ import ThemeToggle from "#/components/theme-toggle";
 import { CartSheet } from "#/components/containers/store/cart/cart-sheet";
 import { useCartStore } from "#/lib/store/cart-store";
 import { MobileMenu } from "./mobile-menu";
+import { useSession } from "#/lib/auth/auth-client";
+import { UserMenu } from "#/components/base/common/user-menu";
 
 const navigationItems = [
   {
@@ -23,6 +25,9 @@ const navigationItems = [
 ];
 
 export function Header() {
+  const { data } = useSession();
+  const user = data?.user;
+
   const { totalItems, setIsOpen } = useCartStore();
   return (
     <header className="@container sticky top-0 z-40 w-full border-b border-dashed bg-background backdrop-blur supports-filter:bg-background/80">
@@ -62,16 +67,15 @@ export function Header() {
 
             <ThemeToggle />
 
-            {/* {user ? (
-              <Button variant="outline">Logout</Button>
+            {user ? (
+              <UserMenu user={user} />
             ) : (
-              <Button variant="outline">Login</Button>
-            )} */}
-            <Link to="/auth/sign-in">
-              <Button variant="default" size="lg" type="button">
-                Sign In
-              </Button>
-            </Link>
+              <Link to="/auth/sign-in">
+                <Button variant="default" size="lg" type="button">
+                  Sign In
+                </Button>
+              </Link>
+            )}
           </div>
 
           <div className="flex @6xl:hidden">
