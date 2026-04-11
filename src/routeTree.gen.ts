@@ -10,12 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthVendorSignUpRouteImport } from './routes/auth/vendor-sign-up'
+import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as vendorLayoutRouteImport } from './routes/(vendor)/_layout'
 import { Route as storeLayoutRouteImport } from './routes/(store)/_layout'
 import { Route as adminAdminRouteImport } from './routes/(admin)/admin'
 import { Route as storeLayoutIndexRouteImport } from './routes/(store)/_layout/index'
 import { Route as adminAdminIndexRouteImport } from './routes/(admin)/admin/index'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as vendorShopSlugRouteImport } from './routes/(vendor)/shop/$slug'
 import { Route as vendorLayoutMyShopRouteImport } from './routes/(vendor)/_layout/my-shop'
 import { Route as vendorLayoutDashboardRouteImport } from './routes/(vendor)/_layout/dashboard'
@@ -67,6 +70,16 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthVendorSignUpRoute = AuthVendorSignUpRouteImport.update({
+  id: '/auth/vendor-sign-up',
+  path: '/auth/vendor-sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignUpRoute = AuthSignUpRouteImport.update({
+  id: '/auth/sign-up',
+  path: '/auth/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthSignInRoute = AuthSignInRouteImport.update({
   id: '/auth/sign-in',
   path: '/auth/sign-in',
@@ -94,6 +107,11 @@ const adminAdminIndexRoute = adminAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => adminAdminRoute,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const vendorShopSlugRoute = vendorShopSlugRouteImport.update({
   id: '/(vendor)/shop/$slug',
@@ -338,6 +356,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof adminAdminRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/vendor-sign-up': typeof AuthVendorSignUpRoute
   '/admin/my-store': typeof adminAdminMyStoreRoute
   '/cart': typeof storeLayoutCartRoute
   '/checkout': typeof storeLayoutCheckoutRoute
@@ -349,6 +369,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof vendorLayoutDashboardRoute
   '/my-shop': typeof vendorLayoutMyShopRoute
   '/shop/$slug': typeof vendorShopSlugRouteWithChildren
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/': typeof adminAdminIndexRoute
   '/': typeof storeLayoutIndexRoute
   '/admin/tenants/$tenantId': typeof adminAdminTenantsTenantIdRoute
@@ -389,6 +410,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth/sign-in': typeof AuthSignInRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/vendor-sign-up': typeof AuthVendorSignUpRoute
   '/admin/my-store': typeof adminAdminMyStoreRoute
   '/cart': typeof storeLayoutCartRoute
   '/checkout': typeof storeLayoutCheckoutRoute
@@ -399,6 +422,7 @@ export interface FileRoutesByTo {
   '/wishlist': typeof storeLayoutWishlistRoute
   '/dashboard': typeof vendorLayoutDashboardRoute
   '/my-shop': typeof vendorLayoutMyShopRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin': typeof adminAdminIndexRoute
   '/': typeof storeLayoutIndexRoute
   '/admin/tenants/$tenantId': typeof adminAdminTenantsTenantIdRoute
@@ -443,6 +467,8 @@ export interface FileRoutesById {
   '/(store)/_layout': typeof storeLayoutRouteWithChildren
   '/(vendor)/_layout': typeof vendorLayoutRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/vendor-sign-up': typeof AuthVendorSignUpRoute
   '/(admin)/admin/my-store': typeof adminAdminMyStoreRoute
   '/(store)/_layout/cart': typeof storeLayoutCartRoute
   '/(store)/_layout/checkout': typeof storeLayoutCheckoutRoute
@@ -454,6 +480,7 @@ export interface FileRoutesById {
   '/(vendor)/_layout/dashboard': typeof vendorLayoutDashboardRoute
   '/(vendor)/_layout/my-shop': typeof vendorLayoutMyShopRoute
   '/(vendor)/shop/$slug': typeof vendorShopSlugRouteWithChildren
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/(admin)/admin/': typeof adminAdminIndexRoute
   '/(store)/_layout/': typeof storeLayoutIndexRoute
   '/(admin)/admin/tenants/$tenantId': typeof adminAdminTenantsTenantIdRoute
@@ -497,6 +524,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/auth/vendor-sign-up'
     | '/admin/my-store'
     | '/cart'
     | '/checkout'
@@ -508,6 +537,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/my-shop'
     | '/shop/$slug'
+    | '/api/auth/$'
     | '/admin/'
     | '/'
     | '/admin/tenants/$tenantId'
@@ -548,6 +578,8 @@ export interface FileRouteTypes {
   to:
     | '/about'
     | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/auth/vendor-sign-up'
     | '/admin/my-store'
     | '/cart'
     | '/checkout'
@@ -558,6 +590,7 @@ export interface FileRouteTypes {
     | '/wishlist'
     | '/dashboard'
     | '/my-shop'
+    | '/api/auth/$'
     | '/admin'
     | '/'
     | '/admin/tenants/$tenantId'
@@ -601,6 +634,8 @@ export interface FileRouteTypes {
     | '/(store)/_layout'
     | '/(vendor)/_layout'
     | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/auth/vendor-sign-up'
     | '/(admin)/admin/my-store'
     | '/(store)/_layout/cart'
     | '/(store)/_layout/checkout'
@@ -612,6 +647,7 @@ export interface FileRouteTypes {
     | '/(vendor)/_layout/dashboard'
     | '/(vendor)/_layout/my-shop'
     | '/(vendor)/shop/$slug'
+    | '/api/auth/$'
     | '/(admin)/admin/'
     | '/(store)/_layout/'
     | '/(admin)/admin/tenants/$tenantId'
@@ -656,7 +692,10 @@ export interface RootRouteChildren {
   storeLayoutRoute: typeof storeLayoutRouteWithChildren
   vendorLayoutRoute: typeof vendorLayoutRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
+  AuthSignUpRoute: typeof AuthSignUpRoute
+  AuthVendorSignUpRoute: typeof AuthVendorSignUpRoute
   vendorShopSlugRoute: typeof vendorShopSlugRouteWithChildren
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -666,6 +705,20 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/vendor-sign-up': {
+      id: '/auth/vendor-sign-up'
+      path: '/auth/vendor-sign-up'
+      fullPath: '/auth/vendor-sign-up'
+      preLoaderRoute: typeof AuthVendorSignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/sign-up': {
+      id: '/auth/sign-up'
+      path: '/auth/sign-up'
+      fullPath: '/auth/sign-up'
+      preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/sign-in': {
@@ -709,6 +762,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof adminAdminIndexRouteImport
       parentRoute: typeof adminAdminRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(vendor)/shop/$slug': {
       id: '/(vendor)/shop/$slug'
@@ -1166,7 +1226,10 @@ const rootRouteChildren: RootRouteChildren = {
   storeLayoutRoute: storeLayoutRouteWithChildren,
   vendorLayoutRoute: vendorLayoutRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
+  AuthSignUpRoute: AuthSignUpRoute,
+  AuthVendorSignUpRoute: AuthVendorSignUpRoute,
   vendorShopSlugRoute: vendorShopSlugRouteWithChildren,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
