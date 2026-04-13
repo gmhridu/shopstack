@@ -1,34 +1,35 @@
-import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Form } from "@/components/base/forms/form";
+import { Field } from "@/components/base/forms/form-field";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { authClient, signIn, signUp, twoFactor } from "@/lib/auth/auth-client";
+import { validateField, validateOptionalField } from "@/lib/helper/validators";
 import {
   loginSchema,
   passwordSchema,
   registerSchema,
-} from "#/lib/validators/auth";
-import { Button } from "#/components/ui/button";
-import { Checkbox } from "#/components/ui/checkbox";
-import { Label } from "#/components/ui/label";
-import { authClient, signIn, signUp } from "#/lib/auth/auth-client";
-import { toast } from "sonner";
-import { Form } from "#/components/base/forms/form";
-import { Field } from "@/components/base/forms/form-field";
-import { validateField, validateOptionalField } from "#/lib/helper/validators";
+} from "@/lib/validators/auth";
+import { TwoFactorForm } from "./two-factor-form";
 
 interface AuthFormProps {
   mode: "sign-in" | "sign-up";
+  onSuccess?: () => void;
   includeSocial?: boolean;
-  onSuccess: () => void;
   redirectUrl?: string;
 }
 
 export function AuthForm({
   mode,
-  includeSocial = true,
   onSuccess,
+  includeSocial = true,
   redirectUrl,
 }: AuthFormProps) {
   const [loading, setLoading] = useState(false);
-  // const [requires2FA, setRequires2FA] = useState(false);
+  const [requires2FA, setRequires2FA] = useState(false);
 
   const form = useForm({
     defaultValues:
@@ -46,6 +47,7 @@ export function AuthForm({
       if (hasErrors) {
         return;
       }
+
       setLoading(true);
       try {
         if (mode === "sign-in") {
@@ -55,8 +57,30 @@ export function AuthForm({
             password: loginValue.password,
             rememberMe: loginValue.rememberMe,
           });
+
           if (res.error) {
             toast.error(res.error.message || "Sign in failed");
+          } else if (
+            res.data &&
+            "twoFactorRedirect" in res.data &&
+            res.data.twoFactorRedirect
+          ) {
+            // User has 2FA enabled - send OTP immediately
+            try {
+              const otpRes = await twoFactor.sendOtp({});
+              if (otpRes.error) {
+                console.error("Failed to send OTP:", otpRes.error);
+                toast.error(
+                  "Failed to send verification code. Please try again.",
+                );
+                return;
+              }
+              toast.info("A verification code has been sent to your email");
+            } catch (otpErr) {
+              console.error("OTP send error:", otpErr);
+              // Still show 2FA form even if OTP send fails - user can resend
+            }
+            setRequires2FA(true);
           } else {
             toast.success("Signed in successfully!");
             onSuccess?.();
@@ -68,6 +92,7 @@ export function AuthForm({
             password: payload.password,
             name: payload.name!,
           });
+
           if (res.error) {
             toast.error(res.error.message || "Sign up failed");
           } else {
@@ -77,13 +102,23 @@ export function AuthForm({
         }
       } catch (error) {
         toast.error(
-          error instanceof Error ? error.message : "An error occured",
+          error instanceof Error ? error.message : "An error occurred",
         );
       } finally {
         setLoading(false);
       }
     },
   });
+
+  // Show 2FA verification form if required
+  if (requires2FA) {
+    return (
+      <TwoFactorForm
+        onSuccess={onSuccess}
+        onCancel={() => setRequires2FA(false)}
+      />
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-md space-y-6">

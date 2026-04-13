@@ -1,5 +1,5 @@
+import { twoFactorClient } from "better-auth/plugins/two-factor";
 import { createAuthClient } from "better-auth/react";
-import { twoFactorClient } from "better-auth/client/plugins";
 
 const baseURL =
   (typeof import.meta !== "undefined" &&

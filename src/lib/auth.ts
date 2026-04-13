@@ -1,12 +1,24 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { admin, twoFactor } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
-import { db } from "#/lib/db";
-import { account, session, user, verification } from "#/lib/db/schema/auth-schema";
+import { db } from "./db";
+import {
+  account,
+  session,
+  twoFactor as twoFactorTable,
+  user,
+  verification,
+} from "./db/schema/auth-schema";
+import { sendEmail } from "./email";
+import OtpEmail from "./emails/otp-email";
 
 export const auth = betterAuth({
   // Base path where auth routes are mounted
   basePath: "/api/auth",
+
+  // App name for TOTP issuer
+  appName: "Shop Stack",
 
   // Security-related configuration
   // Use a deterministic dev secret if env is missing to prevent runtime errors
@@ -14,7 +26,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     // Local development
     process.env.VITE_BETTER_AUTH_URL!,
-    // Optionally add your production URL here
+    // Optionally add your production app URL via env
     ...(process.env.BETTER_AUTH_URL ? [process.env.BETTER_AUTH_URL] : []),
   ],
 
@@ -27,7 +39,7 @@ export const auth = betterAuth({
     autoSignIn: true,
   },
 
-  // Advance security options
+  // Advanced security options
   advanced: {
     useSecureCookies: process.env.NODE_ENV === "production",
     defaultCookieAttributes: {
@@ -56,7 +68,7 @@ export const auth = betterAuth({
     },
   },
 
-  // Optional social providers if cofigured via env variables
+  // Optional social providers if configured via env variables
   socialProviders: {
     ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
       ? {
@@ -66,7 +78,6 @@ export const auth = betterAuth({
           },
         }
       : {}),
-
     ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
       ? {
           google: {
@@ -78,8 +89,37 @@ export const auth = betterAuth({
   },
 
   plugins: [
-    // make sure this is the last plugin in the array
-    tanstackStartCookies(),
+    admin({ defaultRole: "customer" }),
+    twoFactor({
+      skipVerificationOnEnable: true,
+      otpOptions: {
+        async sendOTP({ user, otp }) {
+          try {
+            const result = await sendEmail({
+              to: user.email!,
+              subject: "Your OTP Code",
+              body: OtpEmail({
+                otp,
+                userName: user.name || user.email || "User",
+                expiresInMinutes: 5,
+              }),
+            });
+            console.log(
+              "Email sent successfully! Message ID:",
+              result.messageId
+            );
+          } catch (error) {
+            console.error("Failed to send OTP email:", error);
+            // In development, also log the OTP as fallback
+            if (process.env.NODE_ENV === "development") {
+              console.log(`🔐 OTP for ${user.email}: ${otp}`);
+            }
+            throw new Error("Failed to send verification code");
+          }
+        },
+      },
+    }),
+    tanstackStartCookies(), // make sure this is the last plugin in the array
   ],
 
   // Drizzle adapter with explicit schema mapping
@@ -90,7 +130,7 @@ export const auth = betterAuth({
       account,
       session,
       verification,
-      // twoFactor: twoFactorTable,
+      twoFactor: twoFactorTable,
     },
   }),
 });

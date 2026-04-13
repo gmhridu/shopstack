@@ -1,5 +1,5 @@
-import { AuthForm } from "#/components/containers/auth/auth-form";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { AuthForm } from "#/components/containers/auth/auth-form";
 
 export function SignUpPage() {
   const navigate = useNavigate();
