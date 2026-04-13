@@ -2,12 +2,38 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { db } from "#/lib/db";
+<<<<<<< HEAD
 import { account, session, user, verification } from "#/lib/db/schema/auth-schema";
+=======
+<<<<<<< HEAD
+import {
+  account,
+  session,
+  user,
+  verification,
+  twoFactor as twoFactorTable,
+} from "#/lib/db/schema/auth-schema";
+import { sendEmail } from "#/lib/email";
+import OtpEmail from "#/lib/emails/otp-email";
+import { twoFactor } from "better-auth/plugins/two-factor";
+=======
+import { account, session, user, verification } from "#/lib/db/schema/auth-schema";
+>>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
+>>>>>>> ccd560e (clean commit (removed secrets))
 
 export const auth = betterAuth({
   // Base path where auth routes are mounted
   basePath: "/api/auth",
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  // App name for TOTP issuer
+  appName: "Shop Stack",
+
+=======
+>>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
+>>>>>>> ccd560e (clean commit (removed secrets))
   // Security-related configuration
   // Use a deterministic dev secret if env is missing to prevent runtime errors
   secret: process.env.BETTER_AUTH_SECRET ?? "dev-secret",
@@ -78,6 +104,37 @@ export const auth = betterAuth({
   },
 
   plugins: [
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    twoFactor({
+      skipVerificationOnEnable: true,
+      otpOptions: {
+        async sendOTP({ user, otp }) {
+          try {
+            const result = await sendEmail({
+              to: user.email!,
+              subject: "Your OTP Code",
+              body: OtpEmail({
+                otp,
+                userName: user.name || user.email || "User",
+                expiresInMinutes: 5,
+              }),
+            });
+            console.log(
+              "Email sent successfully! Message ID:",
+              result.messageId,
+            );
+          } catch (error) {
+            console.error("Failed to send OTP email:", error);
+            throw new Error("Failed to send verification code");
+          }
+        },
+      },
+    }),
+=======
+>>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
+>>>>>>> ccd560e (clean commit (removed secrets))
     // make sure this is the last plugin in the array
     tanstackStartCookies(),
   ],
@@ -90,7 +147,21 @@ export const auth = betterAuth({
       account,
       session,
       verification,
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      twoFactor: twoFactorTable,
+    },
+  }),
+});
+
+=======
+>>>>>>> ccd560e (clean commit (removed secrets))
       // twoFactor: twoFactorTable,
     },
   }),
 });
+<<<<<<< HEAD
+=======
+>>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
+>>>>>>> ccd560e (clean commit (removed secrets))
