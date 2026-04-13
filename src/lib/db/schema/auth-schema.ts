@@ -12,6 +12,13 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  twoFactorEnabled: boolean("two_factor_enabled").default(false),
+=======
+>>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
+>>>>>>> ccd560e (clean commit (removed secrets))
 });
 
 export const session = pgTable(
@@ -73,9 +80,39 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
+<<<<<<< HEAD
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+=======
+<<<<<<< HEAD
+export const twoFactor = pgTable(
+  "two_factor",
+  {
+    id: text("id").primaryKey(),
+    secret: text("secret").notNull(),
+    backupCodes: text("backup_codes").notNull(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    verified: boolean("verified").default(true),
+  },
+  (table) => [
+    index("twoFactor_secret_idx").on(table.secret),
+    index("twoFactor_userId_idx").on(table.userId),
+  ],
+);
+
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+  twoFactors: many(twoFactor),
+=======
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+>>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
+>>>>>>> ccd560e (clean commit (removed secrets))
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -91,3 +128,16 @@ export const accountRelations = relations(account, ({ one }) => ({
     references: [user.id],
   }),
 }));
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+export const twoFactorRelations = relations(twoFactor, ({ one }) => ({
+  user: one(user, {
+    fields: [twoFactor.userId],
+    references: [user.id],
+  }),
+}));
+=======
+>>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
+>>>>>>> ccd560e (clean commit (removed secrets))
