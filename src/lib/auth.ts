@@ -1,46 +1,32 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { admin, twoFactor } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
-import { db } from "#/lib/db";
-<<<<<<< HEAD
-import { account, session, user, verification } from "#/lib/db/schema/auth-schema";
-=======
-<<<<<<< HEAD
+import { db } from "./db";
 import {
   account,
   session,
+  twoFactor as twoFactorTable,
   user,
   verification,
-  twoFactor as twoFactorTable,
-} from "#/lib/db/schema/auth-schema";
-import { sendEmail } from "#/lib/email";
-import OtpEmail from "#/lib/emails/otp-email";
-import { twoFactor } from "better-auth/plugins/two-factor";
-=======
-import { account, session, user, verification } from "#/lib/db/schema/auth-schema";
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
+} from "./db/schema/auth-schema";
+import { sendEmail } from "./email";
+import OtpEmail from "./emails/otp-email";
 
 export const auth = betterAuth({
   // Base path where auth routes are mounted
   basePath: "/api/auth",
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   // App name for TOTP issuer
   appName: "Shop Stack",
 
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
   // Security-related configuration
   // Use a deterministic dev secret if env is missing to prevent runtime errors
   secret: process.env.BETTER_AUTH_SECRET ?? "dev-secret",
   trustedOrigins: [
     // Local development
     process.env.VITE_BETTER_AUTH_URL!,
-    // Optionally add your production URL here
+    // Optionally add your production app URL via env
     ...(process.env.BETTER_AUTH_URL ? [process.env.BETTER_AUTH_URL] : []),
   ],
 
@@ -53,7 +39,7 @@ export const auth = betterAuth({
     autoSignIn: true,
   },
 
-  // Advance security options
+  // Advanced security options
   advanced: {
     useSecureCookies: process.env.NODE_ENV === "production",
     defaultCookieAttributes: {
@@ -82,7 +68,7 @@ export const auth = betterAuth({
     },
   },
 
-  // Optional social providers if cofigured via env variables
+  // Optional social providers if configured via env variables
   socialProviders: {
     ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
       ? {
@@ -92,7 +78,6 @@ export const auth = betterAuth({
           },
         }
       : {}),
-
     ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
       ? {
           google: {
@@ -104,9 +89,7 @@ export const auth = betterAuth({
   },
 
   plugins: [
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+    admin({ defaultRole: "customer" }),
     twoFactor({
       skipVerificationOnEnable: true,
       otpOptions: {
@@ -123,20 +106,20 @@ export const auth = betterAuth({
             });
             console.log(
               "Email sent successfully! Message ID:",
-              result.messageId,
+              result.messageId
             );
           } catch (error) {
             console.error("Failed to send OTP email:", error);
+            // In development, also log the OTP as fallback
+            if (process.env.NODE_ENV === "development") {
+              console.log(`🔐 OTP for ${user.email}: ${otp}`);
+            }
             throw new Error("Failed to send verification code");
           }
         },
       },
     }),
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
-    // make sure this is the last plugin in the array
-    tanstackStartCookies(),
+    tanstackStartCookies(), // make sure this is the last plugin in the array
   ],
 
   // Drizzle adapter with explicit schema mapping
@@ -147,21 +130,7 @@ export const auth = betterAuth({
       account,
       session,
       verification,
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
       twoFactor: twoFactorTable,
     },
   }),
 });
-
-=======
->>>>>>> ccd560e (clean commit (removed secrets))
-      // twoFactor: twoFactorTable,
-    },
-  }),
-});
-<<<<<<< HEAD
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))

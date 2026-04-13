@@ -12,13 +12,11 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+  role: text("role"),
+  banned: boolean("banned").default(false),
+  banReason: text("ban_reason"),
+  banExpires: timestamp("ban_expires"),
   twoFactorEnabled: boolean("two_factor_enabled").default(false),
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
 });
 
 export const session = pgTable(
@@ -36,6 +34,7 @@ export const session = pgTable(
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
+    impersonatedBy: text("impersonated_by"),
   },
   (table) => [index("session_userId_idx").on(table.userId)],
 );
@@ -80,12 +79,6 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
-<<<<<<< HEAD
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
-=======
-<<<<<<< HEAD
 export const twoFactor = pgTable(
   "two_factor",
   {
@@ -107,12 +100,6 @@ export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
   twoFactors: many(twoFactor),
-=======
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -128,9 +115,6 @@ export const accountRelations = relations(account, ({ one }) => ({
     references: [user.id],
   }),
 }));
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
 export const twoFactorRelations = relations(twoFactor, ({ one }) => ({
   user: one(user, {
@@ -138,6 +122,3 @@ export const twoFactorRelations = relations(twoFactor, ({ one }) => ({
     references: [user.id],
   }),
 }));
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))

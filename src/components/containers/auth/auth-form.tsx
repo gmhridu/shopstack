@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import { useForm } from "@tanstack/react-form";
-=======
-<<<<<<< HEAD
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -13,18 +8,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { authClient, signIn, signUp, twoFactor } from "@/lib/auth/auth-client";
 import { validateField, validateOptionalField } from "@/lib/helper/validators";
-=======
-import { useState } from "react";
-import { useForm } from "@tanstack/react-form";
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
 import {
   loginSchema,
   passwordSchema,
   registerSchema,
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 } from "@/lib/validators/auth";
 import { TwoFactorForm } from "./two-factor-form";
 
@@ -32,52 +19,17 @@ interface AuthFormProps {
   mode: "sign-in" | "sign-up";
   onSuccess?: () => void;
   includeSocial?: boolean;
-=======
->>>>>>> ccd560e (clean commit (removed secrets))
-} from "#/lib/validators/auth";
-import { Button } from "#/components/ui/button";
-import { Checkbox } from "#/components/ui/checkbox";
-import { Label } from "#/components/ui/label";
-import { authClient, signIn, signUp } from "#/lib/auth/auth-client";
-import { toast } from "sonner";
-import { Form } from "#/components/base/forms/form";
-import { Field } from "@/components/base/forms/form-field";
-import { validateField, validateOptionalField } from "#/lib/helper/validators";
-
-interface AuthFormProps {
-  mode: "sign-in" | "sign-up";
-  includeSocial?: boolean;
-  onSuccess: () => void;
-<<<<<<< HEAD
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
   redirectUrl?: string;
 }
 
 export function AuthForm({
   mode,
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   onSuccess,
   includeSocial = true,
   redirectUrl,
 }: AuthFormProps) {
   const [loading, setLoading] = useState(false);
   const [requires2FA, setRequires2FA] = useState(false);
-=======
->>>>>>> ccd560e (clean commit (removed secrets))
-  includeSocial = true,
-  onSuccess,
-  redirectUrl,
-}: AuthFormProps) {
-  const [loading, setLoading] = useState(false);
-  // const [requires2FA, setRequires2FA] = useState(false);
-<<<<<<< HEAD
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
 
   const form = useForm({
     defaultValues:
@@ -95,13 +47,7 @@ export function AuthForm({
       if (hasErrors) {
         return;
       }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
       setLoading(true);
       try {
         if (mode === "sign-in") {
@@ -111,11 +57,6 @@ export function AuthForm({
             password: loginValue.password,
             rememberMe: loginValue.rememberMe,
           });
-<<<<<<< HEAD
-          if (res.error) {
-            toast.error(res.error.message || "Sign in failed");
-=======
-<<<<<<< HEAD
 
           if (res.error) {
             toast.error(res.error.message || "Sign in failed");
@@ -140,11 +81,6 @@ export function AuthForm({
               // Still show 2FA form even if OTP send fails - user can resend
             }
             setRequires2FA(true);
-=======
-          if (res.error) {
-            toast.error(res.error.message || "Sign in failed");
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
           } else {
             toast.success("Signed in successfully!");
             onSuccess?.();
@@ -156,13 +92,7 @@ export function AuthForm({
             password: payload.password,
             name: payload.name!,
           });
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
           if (res.error) {
             toast.error(res.error.message || "Sign up failed");
           } else {
@@ -172,15 +102,7 @@ export function AuthForm({
         }
       } catch (error) {
         toast.error(
-<<<<<<< HEAD
-          error instanceof Error ? error.message : "An error occured",
-=======
-<<<<<<< HEAD
           error instanceof Error ? error.message : "An error occurred",
-=======
-          error instanceof Error ? error.message : "An error occured",
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
         );
       } finally {
         setLoading(false);
@@ -188,9 +110,6 @@ export function AuthForm({
     },
   });
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   // Show 2FA verification form if required
   if (requires2FA) {
     return (
@@ -201,9 +120,6 @@ export function AuthForm({
     );
   }
 
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
   return (
     <div className="mx-auto w-full max-w-md space-y-6">
       <Form form={form} className="space-y-6" noValidate>
