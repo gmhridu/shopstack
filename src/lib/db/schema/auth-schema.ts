@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -12,13 +12,7 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   twoFactorEnabled: boolean("two_factor_enabled").default(false),
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
 });
 
 export const session = pgTable(
@@ -37,7 +31,7 @@ export const session = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   },
-  (table) => [index("session_userId_idx").on(table.userId)],
+  (table) => [index("session_userId_idx").on(table.userId)]
 );
 
 export const account = pgTable(
@@ -61,7 +55,7 @@ export const account = pgTable(
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
-  (table) => [index("account_userId_idx").on(table.userId)],
+  (table) => [index("account_userId_idx").on(table.userId)]
 );
 
 export const verification = pgTable(
@@ -77,15 +71,9 @@ export const verification = pgTable(
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
-  (table) => [index("verification_identifier_idx").on(table.identifier)],
+  (table) => [index("verification_identifier_idx").on(table.identifier)]
 );
 
-<<<<<<< HEAD
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
-=======
-<<<<<<< HEAD
 export const twoFactor = pgTable(
   "two_factor",
   {
@@ -100,19 +88,13 @@ export const twoFactor = pgTable(
   (table) => [
     index("twoFactor_secret_idx").on(table.secret),
     index("twoFactor_userId_idx").on(table.userId),
-  ],
+  ]
 );
 
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
   twoFactors: many(twoFactor),
-=======
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -128,9 +110,6 @@ export const accountRelations = relations(account, ({ one }) => ({
     references: [user.id],
   }),
 }));
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
 export const twoFactorRelations = relations(twoFactor, ({ one }) => ({
   user: one(user, {
@@ -138,6 +117,3 @@ export const twoFactorRelations = relations(twoFactor, ({ one }) => ({
     references: [user.id],
   }),
 }));
-=======
->>>>>>> d39f2f4aeb9cd40cab58fd3905c9ec1f88b910fc
->>>>>>> ccd560e (clean commit (removed secrets))

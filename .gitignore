@@ -3,12 +3,9 @@ node_modules
 dist
 dist-ssr
 *.local
-<<<<<<< HEAD
-=======
 .env
 .env.local
 .env.*
->>>>>>> ccd560e (clean commit (removed secrets))
 .nitro
 .tanstack
 .wrangler
