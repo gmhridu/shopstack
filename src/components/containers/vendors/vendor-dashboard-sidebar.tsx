@@ -12,8 +12,14 @@ import type { VendorNavItem } from "#/types/vendor-types";
 import { HomeIcon, StoreIcon } from "lucide-react";
 import { VendorNavMenu } from "#/components/base/vendors/vendor-nav-menu";
 import { VendorUserMenu } from "#/components/base/vendors/vendor-user-menu";
+import { useSession } from "#/lib/auth/auth-client";
+import { Link } from "@tanstack/react-router";
+import { Button } from "#/components/ui/button";
 
 export function VendorDashboardSidebar() {
+  const { data } = useSession();
+  const user = data?.user;
+
   const vendorNavItems: VendorNavItem[] = [
     {
       title: "Dashboard",
@@ -28,12 +34,6 @@ export function VendorDashboardSidebar() {
     },
   ];
 
-  const user = {
-    name: "Vendor",
-    email: "vendor@gmail.com",
-    avatar: "",
-    role: "vendor",
-  };
   return (
     <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
@@ -70,7 +70,20 @@ export function VendorDashboardSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <VendorUserMenu user={user} />
+        {user ? (
+          <VendorUserMenu user={user} />
+        ) : (
+          <Link to="/auth/sign-in">
+            <Button
+              variant="default"
+              className="w-full"
+              type="button"
+              size="lg"
+            >
+              Sign In
+            </Button>
+          </Link>
+        )}
       </SidebarFooter>
 
       <SidebarRail />
