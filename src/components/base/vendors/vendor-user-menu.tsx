@@ -13,14 +13,15 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "#/components/ui/sidebar";
+import { signOut } from "#/lib/auth/auth-client";
 import { useRouter } from "@tanstack/react-router";
 import { ChevronDownIcon, LogOutIcon, UserIcon } from "lucide-react";
 
 interface VendorUser {
   name: string;
   email: string;
-  avatar?: string;
-  role?: string;
+  image?: string | null;
+  role?: string | null;
 }
 
 interface VendorUserMenuProps {
@@ -34,8 +35,8 @@ export function VendorUserMenu({ user }: VendorUserMenuProps) {
   const handleSignOut = async () => {
     const currentPath = window.location.pathname + window.location.search;
 
-    // await signOut();
-    router.navigate({ to: "/auth/sign-in", search: { redirect: currentPath } });
+    await signOut();
+    router.navigate({ to: "/auth/sign-in", search: { redirectTo: currentPath } });
   };
 
   const initials = user.name
@@ -55,7 +56,7 @@ export function VendorUserMenu({ user }: VendorUserMenuProps) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="size-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name ?? "User"} />
+                <AvatarImage src={user.image ?? undefined} alt={user.name ?? "User"} />
                 <AvatarFallback className="rounded-lg">
                   {initials}
                 </AvatarFallback>
@@ -78,7 +79,7 @@ export function VendorUserMenu({ user }: VendorUserMenuProps) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="size-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name ?? "User"} />
+                  <AvatarImage src={user.image ?? undefined} alt={user.name ?? "User"} />
                   <AvatarFallback className="rounded-lg">
                     {initials}
                   </AvatarFallback>

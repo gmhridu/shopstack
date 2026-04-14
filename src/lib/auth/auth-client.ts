@@ -1,5 +1,5 @@
-import { twoFactorClient } from "better-auth/plugins/two-factor";
 import { createAuthClient } from "better-auth/react";
+import { adminClient, twoFactorClient } from "better-auth/client/plugins";
 
 const baseURL =
   (typeof import.meta !== "undefined" &&
@@ -9,7 +9,7 @@ const baseURL =
 
 export const authClient = createAuthClient({
   baseURL,
-  plugins: [twoFactorClient()],
+  plugins: [adminClient(), twoFactorClient()],
 });
 
 export const { signIn, signOut, signUp, useSession, getSession, twoFactor } =
