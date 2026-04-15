@@ -15,10 +15,17 @@ import { VendorUserMenu } from "#/components/base/vendors/vendor-user-menu";
 import { useSession } from "#/lib/auth/auth-client";
 import { Link } from "@tanstack/react-router";
 import { Button } from "#/components/ui/button";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useShops } from "#/hooks/vendors/use-shops";
 
 export function VendorDashboardSidebar() {
-  const { data } = useSession();
-  const user = data?.user;
+  const { data: session } = useSession();
+  const { shopQueryOptions } = useShops();
+  const { data: shopData } = useSuspenseQuery(shopQueryOptions());
+
+  const shopCount = shopData?.shops?.length ?? 0;
+
+  const user = session?.user;
 
   const vendorNavItems: VendorNavItem[] = [
     {
@@ -30,7 +37,7 @@ export function VendorDashboardSidebar() {
       title: "My Shops",
       href: "/my-shop",
       icon: StoreIcon,
-      badge: "5",
+      badge: shopCount > 0 ? shopCount : undefined,
     },
   ];
 
