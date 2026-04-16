@@ -27,31 +27,32 @@ const THEME_INIT_SCRIPT = `(function () {
   } catch (e) {}
 })();`;
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
-  {
-    head: () => ({
-      meta: [
-        {
-          charSet: "utf-8",
-        },
-        {
-          name: "viewport",
-          content: "width=device-width, initial-scale=1",
-        },
-        {
-          title: "ShopStack Multi-tenant E-commerce",
-        },
-      ],
-      links: [
-        {
-          rel: "stylesheet",
-          href: appCss,
-        },
-      ],
-    }),
-    shellComponent: RootDocument,
-  },
-);
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+  isAdmin?: boolean;
+}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
+      },
+      {
+        title: "ShopStack Multi-tenant E-commerce",
+      },
+    ],
+    links: [
+      {
+        rel: "stylesheet",
+        href: appCss,
+      },
+    ],
+  }),
+  shellComponent: RootDocument,
+});
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (

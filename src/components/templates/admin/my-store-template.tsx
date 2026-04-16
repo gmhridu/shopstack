@@ -20,9 +20,9 @@ export function MyStoreTemplate({ shops, onAddShop }: MyStoreTemplateProps) {
       </PageHeader>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {shops.map((shop) => (
+        {/* {shops.map((shop) => (
           <ShopCard key={shop.id} shop={shop} />
-        ))}
+        ))} */}
       </div>
     </div>
   );
