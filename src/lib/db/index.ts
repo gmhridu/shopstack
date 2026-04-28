@@ -7,6 +7,7 @@ import {
 import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 import { drizzle, type NeonHttpDatabase } from "drizzle-orm/neon-http";
 import { shops, vendors } from "#/lib/db/schema/shop-schema";
+import { categories } from "#/lib/db/schema/category-schema";
 
 const schema = {
   user,
@@ -15,6 +16,7 @@ const schema = {
   verification,
   vendors,
   shops,
+  categories,
 };
 
 // Lazy initialization - only connect to DB when first accessed on server
