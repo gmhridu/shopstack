@@ -12,6 +12,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "#/components/ui/sidebar";
+import { useSession } from "#/lib/auth/auth-client.ts";
 import { getShopNavItems } from "#/lib/constants/vendors.routes";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeftIcon, StoreIcon } from "lucide-react";
@@ -21,15 +22,11 @@ interface ShopSidebarProps {
   shopSlug: string;
 }
 
-// Mock user data - replace with actual user data from auth context
-const mockUser = {
-  name: "John Vendor",
-  email: "john@vendor.com",
-  avatar: "",
-  role: "vendor",
-};
-
 export function ShopDashboardSidebar({ shopName, shopSlug }: ShopSidebarProps) {
+  const { data: session } = useSession();
+
+  const user = session?.user;
+
   return (
     <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
@@ -70,7 +67,20 @@ export function ShopDashboardSidebar({ shopName, shopSlug }: ShopSidebarProps) {
       </SidebarContent>
 
       <SidebarFooter>
-        <VendorUserMenu user={mockUser} />
+        {user ? (
+          <VendorUserMenu user={user} />
+        ) : (
+          <Link to="/auth/sign-in">
+            <Button
+              variant="default"
+              className="w-full"
+              type="button"
+              size="lg"
+            >
+              Sign In
+            </Button>
+          </Link>
+        )}
       </SidebarFooter>
 
       <SidebarRail />

@@ -1,3 +1,6 @@
+import type { SQL } from "drizzle-orm";
+import type { PaginatedResponse } from "#/types/api-response";
+
 export interface Category {
   id: string;
   name: string;
@@ -36,7 +39,7 @@ export interface CategoryFormValues {
   name: string;
   slug: string;
   description: string;
-  image: FileList | string | null;
+  image: string | null;
   icon: string;
   parentId: string;
 }
@@ -84,20 +87,20 @@ export interface NormalizedCategory {
  * Shared category list response type
  * Used across vendor, admin, and store category functions
  */
-// export type CategoryListResponse = PaginatedResponse<NormalizedCategory>;
+export type CategoryListResponse = PaginatedResponse<NormalizedCategory>;
 
-// export interface CategoryQueryOptions {
-//   baseConditions?: SQL[];
-//   search?: string;
-//   parentId?: string | null;
-//   isActive?: boolean;
-//   featured?: boolean;
-//   limit?: number;
-//   offset?: number;
-//   sortBy?: "name" | "createdAt" | "sortOrder" | "productCount";
-//   sortDirection?: "asc" | "desc";
-//   includeShopInfo?: boolean;
-// }
+export interface CategoryQueryOptions {
+  baseConditions?: SQL[];
+  search?: string;
+  parentId?: string | null;
+  isActive?: boolean;
+  featured?: boolean;
+  limit?: number;
+  offset?: number;
+  sortBy?: "name" | "createdAt" | "sortOrder" | "productCount";
+  sortDirection?: "asc" | "desc";
+  includeShopInfo?: boolean;
+}
 
 export interface CategoryQueryResult {
   data: NormalizedCategory[];

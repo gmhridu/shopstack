@@ -1,20 +1,41 @@
-import type { Category } from "#/types/category-types";
-import { CategoryHeader } from "#/components/containers/vendors/categories/category-header";
-import { CategoryTable } from "#/components/containers/vendors/categories/category-table";
+import VendorCategoryTable from "#/components/containers/shared/categories/category-table";
+import type {
+  DataTableFetchParams,
+  DataTableFetchResult,
+} from "@/components/base/data-table/types";
+import { CategoryHeader } from "@/components/containers/vendors/categories/category-header";
+import type { VendorCategoryMutationState } from "@/hooks/vendors/use-categories";
+import type { NormalizedCategory } from "@/types/category-types";
 
 interface ShopCategoriesTemplateProps {
-  categories: Category[];
+  fetcher: (
+    params: DataTableFetchParams
+  ) => Promise<DataTableFetchResult<NormalizedCategory>>;
   onAddCategory: () => void;
+  onEditCategory: (category: NormalizedCategory) => void;
+  onDeleteCategory: (category: NormalizedCategory) => void;
+  mutationState?: VendorCategoryMutationState;
+  isCategoryMutating?: (id: string) => boolean;
 }
 
 export function ShopCategoriesTemplate({
-  categories,
+  fetcher,
   onAddCategory,
+  onEditCategory,
+  onDeleteCategory,
+  mutationState,
+  isCategoryMutating,
 }: ShopCategoriesTemplateProps) {
   return (
     <div className="space-y-6">
       <CategoryHeader onAddCategory={onAddCategory} />
-      <CategoryTable categories={categories} />
+      <VendorCategoryTable
+        fetcher={fetcher}
+        onEdit={onEditCategory}
+        onDelete={onDeleteCategory}
+        mutationState={mutationState}
+        isCategoryMutating={isCategoryMutating}
+      />
     </div>
   );
 }
